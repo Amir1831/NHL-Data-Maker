@@ -1,6 +1,6 @@
 # NHL News Dataset
 
-This project fetches data from the NHL website using the corresponding API to create a dataset of news related to teams that have played a game in the last 120 days. This dataset can be used for natural language processing (NLP) tasks.
+This project fetches data from the [NHL](https://www.nhl.com/) `(National Hockey League)` website using the corresponding API to create a dataset of news related to teams that have played a game in the last 120 days. This dataset can be used for natural language processing (NLP) tasks.
 
 ## Fetching Data
 
