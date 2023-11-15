@@ -66,7 +66,18 @@ mask_home = (zero_days < (Home_df["DateTime_x"] - Home_df["DateTime_y"])) & ((Ho
 final_Away_df = Away_df[mask_Away].sort_values(by="DateTime_x",ascending=False).reset_index()
 final_Home_df = Home_df[mask_home].sort_values(by="DateTime_x",ascending=False).reset_index()
 ```
+## Map *News* to `Nearest` *game* 
 
+In this section first i add column `DiffrenceInDay` that shows the diffrence in Game date and publish date , then i sort the dataframe by this column and drop the rows with duplicate `NewsID` , by this action we eliminate duplicate news and Map news to Nearst Game . 
+
+
+```python
+final_Away_df["DiffrenceInDay"] = final_Away_df["DateTime_x"] - final_Away_df["DateTime_y"]
+final_Home_df["DiffrenceInDay"] = final_Home_df["DateTime_x"] - final_Home_df["DateTime_y"]
+dup_Away = final_Away_df.sort_values(by="DiffrenceInDay")["NewsID"].duplicated(keep="first")
+dup_Home = final_Home_df.sort_values(by="DiffrenceInDay")["NewsID"].duplicated(keep="first")
+final_Away_df = final_Away_df[dup_Away.apply(lambda x : not x)]
+final_Home_df = final_Home_df[dup_Home.apply(lambda x : not x)]```
 ## Save Data
 
 The final datasets (`final_Away_df` and `final_Home_df`) are saved as CSV files.
@@ -77,3 +88,7 @@ final_Home_df.to_csv("./Home_data.csv")
 ```
 
 Feel free to modify and use this code for creating your own NHL news dataset for NLP tasks!
+
+## Python-butifulsoup
+
+Use this code to get news directly from [NHL.com](https://www.nhl.com/) website
